@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.6
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScrubsScraper", "ScrubsScraper\ScrubsScraper.csproj", "{B7EC357F-ADEF-4360-92AE-8BE99B1DBFCC}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "ScrubsScraper.App", "ScrubsScraper.App\ScrubsScraper.App.fsproj", "{C043277E-7768-4826-8E4E-D614C2D80251}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B7EC357F-ADEF-4360-92AE-8BE99B1DBFCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B7EC357F-ADEF-4360-92AE-8BE99B1DBFCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B7EC357F-ADEF-4360-92AE-8BE99B1DBFCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B7EC357F-ADEF-4360-92AE-8BE99B1DBFCC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C043277E-7768-4826-8E4E-D614C2D80251}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C043277E-7768-4826-8E4E-D614C2D80251}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C043277E-7768-4826-8E4E-D614C2D80251}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C043277E-7768-4826-8E4E-D614C2D80251}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
