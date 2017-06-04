@@ -44,6 +44,8 @@ let parseLinks html xpath =
 let parseLinksValues (hrefs:HtmlAttribute list) =
     hrefs |> List.map (fun href -> href.Value)
     
+let trimBaseUrl (baseUrl:string) (url:string) =
+    url.Replace(baseUrl, "")
     
 let classifyResource resource = 
    match resource with
@@ -73,19 +75,19 @@ let getSearch baseUrl (searchText:string) =
     let url = baseUrl + sprintf "/search-tvshows/?free=%s" (System.Web.HttpUtility.UrlEncode searchText)
     let html = downloadHtml url
     match html with
-       | Some(html) -> parseLinks html "//div[@id=\"content_box\"]/table/tbody/tr/th/div/a[1]" |> parseLinksValues
+       | Some(html) -> parseLinks html "//div[@id=\"content_box\"]/table/tbody/tr/th/div/a[1]" |> parseLinksValues |> List.map (trimBaseUrl baseUrl)
        | None -> []
 
-let getShowSeasons showUrl =
-    let html = downloadHtml showUrl             
+let getShowSeasons baseUrl url =
+    let html = downloadHtml (baseUrl + url)
     match html with
-    | Some(html) -> parseLinks html "//div[@id=\"content_box\"]/ul/li/a" |> parseLinksValues
+    | Some(html) -> parseLinks html "//div[@id=\"content_box\"]/ul/li/a" |> parseLinksValues |> List.map (trimBaseUrl baseUrl)
     | None -> []
 
-let getSeasonEpisodes seasonUrl =
-    let html = downloadHtml seasonUrl
+let getSeasonEpisodes baseUrl url =
+    let html = downloadHtml (baseUrl + url)
     match html with
-    | Some(html) -> []
+    | Some(html) -> parseLinks html "//div[@id=\"content_box\"]/table/tbody/tr/th/div/a[1]" |> parseLinksValues |> List.map (trimBaseUrl baseUrl)
     | _ -> []
 
 [<EntryPoint>]
@@ -93,15 +95,18 @@ let main argv =
     let baseUrl = "http://project-free-tv.li"
 
     getSearch baseUrl "archer"
-    |> List.map (fun resource -> (resource + baseUrl, classifyResource resource))
+    |> List.map (fun resource -> (resource, classifyResource resource))
     |> List.iter (fun (url, resourceType) -> printfn "%s %s" url (if resourceType.IsSome then resourceType.Value.ToString() else "invalid"))
     |> ignore
 
-    getShowSeasons (baseUrl + "/free/archer/")
+    getShowSeasons baseUrl "/free/archer/"
     |> List.iter (printfn "%s")
     |> ignore
 
-    // getSeasonEpisodes "http://project-free-tv.li/free/archer/archer-season-5/"
+    getSeasonEpisodes baseUrl "/free/archer/archer-season-5/"
+    |> List.iter (printfn "%s")
+    |> ignore
+
 
     // /free/archer/archer-season-8/
 
